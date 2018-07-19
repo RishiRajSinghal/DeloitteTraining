@@ -1,0 +1,181 @@
+create table Persons
+    (
+    Lastname varchar(20),
+    Firstname varchar(20),
+    Address varchar(20),
+    City varchar(290)
+    );
+
+insert into Persons values('Isha','Kapoor','BTM',Bangalore');
+insert into Persons values('Ravish','Singh','BTM','Bangalore');
+insert into Persons values('Neha','Sharma','Marathalli','Bangalore');
+select Lastname from Persons;
+select * from Persons where address = 'BTM';
+select * from Persons where Firstname like 'N%';
+insert into Persons values('Raja','Sharma','Marathalli','null');
+
+//setting rest column values as null 
+insert into Persons (City,Firstname) values('jaipur','Sharma');
+
+//change city to mumbai of all people whose lastname is raja
+
+update Persons set city = 'Mumbai' where lastname = 'Raja';
+
+//updating multiple columns
+update Persons set city = 'Mumbai', Address = 'Juhu' where Lastname = 'Raja';
+
+update Persons set Firstname = 'Mala', Address = 'Juhu' where city = 'Jaipur';
+
+delete from persons where city = 'Mumbai';
+
+delete from persons where city is null;
+delete from persons where city in ('Bangalore','jaipur');
+insert into Persons values('Ravish','Singh','BTM','Bangalore');
+
+select upper('deloitte') from persons;
+
+ select upper(city) from persons;//
+select lower('rishi') from persons;
+select lower('RISHI') from dual;
+select upper('deloitte') from dual;
+select sysdate from sys.dual; or dual;
+
+
+
+create table Studentdata
+(
+sid char(6),
+sname varchar(20),
+dob date,
+doj date
+);
+
+insert into studentdata values('100000','rishi','16-JUL-1996','19-JUL-2018');
+insert into studentdata values('100001','raghav','17-JUNE-1995','22-JUL-2018');
+insert into studentdata values('100002','akshay','17-FEB-1996','13-AUG-2018');
+
+ insert into studentdata values('100002','akshay','17-FEB-1996',to_date('20180617','YYYYMMDD'));
+insert into studentdata values('100002','akshay','17-FEB-1996',to_date('2018/06/18','yyyy/mm/dd'));
+
+select trunc(months_between(sysdate,dob)/12) year,
+           trunc(mod(months_between(sysdate,dob),12)) month,
+           trunc(sysdate-add_months(dob,trunc(months_between(sysdate,dob)/12)*12+trunc(mod(months_between(sysdate,dob),12)))) day
+    from (Select to_date('15122000','DDMMYYYY') dob from dual);
+
+select months_between(sysdate,dob)/12 from studentdata;
+
+
+
+
+
+
+
+
+
+
+create table student
+(
+roll varchar(20),
+name varchar(20),
+address varchar(20),
+marks number
+);
+
+insert into student values('1','rishi','sambalpur',null);
+insert into student values('2','raj','mumbai',80);
+insert into student values('3','singham','madras',100);
+
+
+select nvl(marks,0) from studentdata;
+select avg(marks) from student;
+select avg(nvl(marks,0)) from student;
+
+select nvl2(marks,roll*3,roll*5) from student;
+
+
+select nvl2(marks,to_char(marks),'absent') from student;
+
+select nvl2(marks,'present','absent') from student;
+
+select roll,coalesce (marks,to_number(roll),10) from student;
+
+select sum(marks) from student ;
+
+select address,sum(marks) from student group by address having address = 'mumbai';
+
+create table studentd
+(
+roll varchar(20) primary key,
+name varchar(20) not null,
+address varchar(20) check (Address in ('Chennai','mumbai','Kolkata')),
+marks number check (Marks between 0 and 100)
+);
+
+insert into studentd values('1','A','mumbai',98);
+
+create table loanpayment
+(
+loanno number(4) constraint myloanconstraint primary key,
+loanstatus varchar2(10) constraint loanstatuscons check (loanstatus=UPPER(loanstatus)),
+loanamount number(10) not null,
+update_date date default sysdate,
+prdouctkey varchar2(5)
+);
+
+insert into loanpayment values(1,'APPROVED',8000,default,'P001');
+
+https://paste.ubuntu.com/p/Wfs4rWhdX6/
+
+
+
+
+ASSIGNMENT
+
+Create a table called Employee with the following Columns  and perform the following operations:-
+------------------------------------------------------------------------------------------------------------
+
+EmployeeID    
+EmployeeName   
+EmployeeAddress : 
+DOB
+DOJ
+Salary
+
+
+a.) Insert five records
+
+b) Retrieve all the records
+
+
+c) Retrieve the Employee name whose salary is greater than 20000
+
+d) Retrieve the Employee name whose address contains 'a' or 'p' or 'r'  as the last character
+ 
+e) Increase the Salary of all the Employee by 20%
+
+f) Delete all the employee records whose salary is less than 5000
+
+SOLUTION:-
+
+ create table employee
+(
+employeeid char(5),
+employeename varchar(20),
+employeeaddress varchar(20),
+dob date,
+doj date,
+salary number(10)
+);
+
+a) insert into employee values('1','Rishi','MKT','17-FEB-1996','16-JULY-2018',40000.00);
+   insert into employee values('2','Raj','MKT','17-JULY-1996','17-JULY-2018',42000.00);
+   insert into employee values('3','Raman','LKT','14-FEB-1995','16-JUNE-2018',45000.00);
+   insert into employee values('4','Pranav','UKT','4-JAN-1994','1-AUGUST-2018',90000.00);
+   insert into employee values('5','Sharath','MKT','4-JAN-1994','16-AUGUST-2018',50000.00);
+
+b) select * from employee;
+c) select employeename from employee where salary>20000;
+d) select employeename from employee where employeename in ('%a','%p','%r');
+e) update employee set salary = 1.2*salary;
+f) delete from employee where salary<5000;
+
