@@ -1,0 +1,228 @@
+create table AB_emp
+(
+empno numeric(3) primary key,
+empname varchar2(20) not null,
+salary numeric(8,2),
+designation varchar2(20),
+deptno numeric(3)
+);
+create table AB2_dept 
+(
+deptno numeric(3) primary key,
+deptname varchar(20),
+location varchar2(20) not null
+); 
+
+insert into AB_emp values(1,'anu',90000,'consultant',009);
+
+alter table AB_emp add constraint myfk foreign key(deptno) references AB2_dept(deptno);
+
+ insert into ab2_Dept values(009,'consultant','bangalore');
+
+alter table AB_emp add constraint myfk foreign key(deptno) references AB2_dept(deptno);
+
+
+
+
+
+
+
+create table supplier
+(
+supplierid numeric(10) not null,
+suppliername varchar(20) not null,
+contactname varchar(20),
+constraint supplier_pk primary key(supplierid)  // can add more like (supplierid,suppliername etc.....)
+);
+
+create table products
+(
+productid numeric(10) not null,
+supplierid numeric not null,
+constraint fk_supplier foreign key (supplierid) references supplier(supplierid)
+);
+
+
+insert into supplier values(1,'raman','ramu');
+insert into products values(10,1);
+
+ insert into supplier values(2,'raman','ramu');
+
+*******************
+insert into products values(11,3);
+insert into products values(11,3)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.FK_SUPPLIER) violated - parent key not
+found
+**********************
+
+ alter table ab_emp add email varchar(20);  //add column
+insert into ab_emp values(15,'sharad',45000,'hr',9,'rrs3@gmail.com');
+alter table ab_emp drop column email;  //drop  a column
+alter table ab_emp add constraint salaryconstraint  check (salary>20000);
+
+
+/////////////////////////////////////////////////////////
+create table section
+(
+sectionid number(3) constraint sid check(sectionid>0),
+sectionname char(30) constraint sname not null,
+bookcount number(6),
+constraint sect_prime primary key(sectionid)
+);
+
+create table book
+(
+isbn number(10) constraint isbnno check (isbn between 1 and 2000),
+title varchar(200) constraint titl_k  not null,
+author varchar(200) constraint aut_k  not null,
+lentdate date,
+returndate date,
+timeslent number(6),
+sectionid number(3),
+constraint book_prime primary key(isbn),
+constraint book_sect foreign key(sectionid) references section(sectionid)
+on delete cascade
+);
+
+
+
+insert into section values(1,'horror',5);
+insert into book values(452,'sherlock holmes','conan doyle','16-jun-2018','16-august-2018',2,1);
+
+delete from section where sectionid = 2;
+
+*********************************************
+
+create table stud
+(
+roll number(10),
+name varchar(20)
+);
+
+create table fees
+(
+roll number(10),
+amount number(10)
+);
+
+insert into stud values(&roll,'&name');
+insert into fees values(&roll,&amount);
+
+select name from stud where roll = (select roll from fees where amount = 15000);//single subquery
+
+select name from stud where roll in (select roll from fees where amount = 2000);
+
+CORRELATED SUBQUERRY
+****to delete maximum salary from each department**********
+
+create table empl
+    (
+    deptno number(10),
+    salary number(10)
+    );
+
+insert into empl values(&deptno,&salary);
+delete from empl a where a.salary=(select max(salary) from empl b where a.deptno= b.deptno);
+
+ANY AND ALL ???????????????????????????????????????????????????????
+
+create table suppliers
+(
+supplierid numeric(10),
+suppliername varchar(10)
+);
+create table orders
+(
+orderid numeric(10),
+supplierid numeric(10),
+orderdate date
+);
+insert into suppliers values(1,'HCL');
+insert into orders values(10,1,'16-JUN-2018');
+
+select orderid,suppliername from orders,suppliers where orders.supplierid=suppliers.supplierid;
+
+select orderid,supplierid from orders,suppliers where orders.supplierid=suppliers.supplierid;
+
+***********************OUTER JOIN***************************
+ insert into ORDERS values(13,5,'16-JUly-2018');
+
+1 row created.
+
+SQL> insert into ORDERS values(15,6,'16-JUly-2018');
+
+1 row created.
+
+SQL> insert into suppliers values(10,8,'16-JUN-2018');
+insert into suppliers values(10,8,'16-JUN-2018')
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> insert into suppliers values(10,'HP');
+
+1 row created.
+
+SQL> insert into suppliers values(15,'HP');
+
+1 row created.
+
+SQL> insert into suppliers values(16,'HP');
+
+1 row created.
+
+SQL> select * from orders;
+
+   ORDERID SUPPLIERID ORDERDATE
+---------- ---------- ---------
+        10          1 16-JUN-18
+        11          2 16-JUN-18
+        13          3 16-JUL-18
+        13          5 16-JUL-18
+        15          6 16-JUL-18
+
+SQL> select * from suppliers;
+
+SUPPLIERID SUPPLIERNA
+---------- ----------
+         1 HCL
+         2 IBM
+         3 HP
+        10 HP
+        15 HP
+        16 HP
+
+6 rows selected.
+
+SQL> select orderid,suppliername from orders left outer join suppliers on order.supplierid=supplier.supplierid;
+select orderid,suppliername from orders left outer join suppliers on order.supplierid=supplier.supplierid
+                                                                     *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select orderid,suppliername from orders left outer join suppliers on orders.supplierid=suppliers.supplierid;
+
+   ORDERID SUPPLIERNA
+---------- ----------
+        10 HCL
+        11 IBM
+        13 HP
+        15
+        13
+
+SQL> select orderid,suppliername from orders right outer join suppliers on orders.supplierid=suppliers.supplierid;
+
+   ORDERID SUPPLIERNA
+---------- ----------
+        10 HCL
+        11 IBM
+        13 HP
+           HP
+           HP
+           HP
+`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
