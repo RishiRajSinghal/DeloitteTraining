@@ -1,0 +1,49 @@
+ASSIGNMENT
+
+Create a table called Employee with the following Columns  and perform the following operations:-
+------------------------------------------------------------------------------------------------------------
+
+EmployeeID    
+EmployeeName   
+EmployeeAddress : 
+DOB
+DOJ
+Salary
+
+
+a.) Insert five records
+
+b) Retrieve all the records
+
+
+c) Retrieve the Employee name whose salary is greater than 20000
+
+d) Retrieve the Employee name whose address contains 'a' or 'p' or 'r'  as the last character
+ 
+e) Increase the Salary of all the Employee by 20%
+
+f) Delete all the employee records whose salary is less than 5000
+
+SOLUTION:-
+
+ create table employee
+(
+employeeid char(5),
+employeename varchar(20),
+employeeaddress varchar(20),
+dob date,
+doj date,
+salary number(10)
+);
+
+a) insert into employee values('1','Rishi','MKT','17-FEB-1996','16-JULY-2018',40000.00);
+   insert into employee values('2','Raj','MKT','17-JULY-1996','17-JULY-2018',42000.00);
+   insert into employee values('3','Raman','LKT','14-FEB-1995','16-JUNE-2018',45000.00);
+   insert into employee values('4','Pranav','UKT','4-JAN-1994','1-AUGUST-2018',90000.00);
+   insert into employee values('5','Sharath','MKT','4-JAN-1994','16-AUGUST-2018',50000.00);
+
+b) select * from employee;
+c) select employeename from employee where salary>20000;
+d) select employeename from employee where employeename in ('%a','%p','%r');
+e) update employee set salary = 1.2*salary;
+f) delete from employee where salary<5000;
