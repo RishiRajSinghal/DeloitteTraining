@@ -1,23 +1,28 @@
-
+package Day7;
+//MAPS
+import java.security.KeyStore.Entry;
+import java.util.*;
 public class Demo {
-		int num1=10,num2=20;
-		public Demo(int num1,int num2) {
-				this.num1 = num2;
-				num2 = num1;
-		}
-		public void changeValues(int num1,Demo demo) {
-			this.num1++;
-			demo.num2 = --num1;
-			demo.num2 = this.num1++;
-			System.out.println("demo.num1 is" + demo.num1);
-			System.out.println(num1+this.num1+this.num2+demo.num1);
-		}
-		 public static void main(String[] args) 
-		{
-			 	int num1=100;int num2=200;
-			 	Demo demo = new Demo(100,200);
-			 	demo.changeValues(num1, demo);
-			 	System.out.println(num1+num2+demo.num1+demo.num2);
-		}
+public static void main(String[] args) {
+	TreeMap<String,Double> tm= new TreeMap<String,Double>(); //creating a treemap
+	tm.put("rishi", new Double(456321.32));
+	tm.put("raja", new Double(56321.32));
+	tm.put("ishita", new Double(45000.82));
+	tm.put("ishaani", new Double(45632.85));
+	tm.put("aruhi", new Double(45000.82));
+	
+	Set<java.util.Map.Entry<String, Double>> s = tm.entrySet(); //converts map to set
+	Iterator i = s.iterator();
+	while(i.hasNext())
+	{
+		Map.Entry me = (Map.Entry)i.next(); //used because we r having 2 values primary key and value
+		System.out.println(me.getKey()+":");
+		System.out.println(me.getValue());
 	}
-
+	System.out.println();
+	double balance = ((Double)tm.get("rishi")).doubleValue();
+	tm.put("rishi", new Double (balance+1000));
+	System.out.println("rishi's new balance :"+tm.get("rishi"));
+	 
+}
+}
