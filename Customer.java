@@ -1,24 +1,71 @@
-package day4;
+package Day6;
 
+import java.io.Serializable;
 
-public class Customer {
+public class Customer implements Comparable <Customer>,Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3582156630196852931L;
 private int custid;
 private String custname;
 private int billamt;
-private boolean billpaid;
+private transient String address;
 
 public Customer()
 {
-	custid=1000;
-	custname  = "NA";
-	billamt= 200;
+	
 }
 
-public Customer(int custid, String custname, int billamt) {
-	
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((address == null) ? 0 : address.hashCode());
+	result = prime * result + billamt;
+	result = prime * result + custid;
+	result = prime * result + ((custname == null) ? 0 : custname.hashCode());
+	return result;
+}
+
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Customer other = (Customer) obj;
+	if (address == null) {
+		if (other.address != null)
+			return false;
+	} else if (!address.equals(other.address))
+		return false;
+	if (billamt != other.billamt)
+		return false;
+	if (custid != other.custid)
+		return false;
+	if (custname == null) {
+		if (other.custname != null)
+			return false;
+	} else if (!custname.equals(other.custname))
+		return false;
+	return true;
+}
+
+@Override
+public String toString() {
+	return "Customer [custid=" + custid + ", custname=" + custname + ", billamt=" + billamt + ", address=" + address
+			+ "]";
+}
+
+public Customer(int custid, String custname, int billamt, String address) {
+	super();
 	this.custid = custid;
 	this.custname = custname;
 	this.billamt = billamt;
+	this.address = address;
 }
 
 public int getCustid() {
@@ -45,51 +92,33 @@ public void setBillamt(int billamt) {
 	this.billamt = billamt;
 }
 
-public boolean isBillpaid() { //note while generating getter for boolean it takes "isbillpaid"//
-	return billpaid;
+public String getAddress() {
+	return address;
 }
 
-public void setBillpaid(boolean billpaid) {
-	this.billpaid = billpaid;
+public void setAddress(String address) {
+	this.address = address;
 }
 
-public Customer(boolean billpaid) {
-	super();
-	this.setBillpaid(billpaid);
+@Override
+public int compareTo(Customer o) {
+	// TODO Auto-generated method stub
+	//saorting on the basis of bill amt
+	/*if(this.billamt>o.billamt)
+	{
+		return 1;
+	}
+	else
+	{
+	return -1;*/
+	//sorting on the basis of name
+	if(this.getCustname().compareTo(o.getCustname())>0)
+	{
+		return -1;
+	}
+	else
+	{
+		return 1;
 }
-
-public Customer(String custname, int billamt) {
-	this();                
-	this.custname = custname;
-	this.billamt = billamt;
 }
-
-public Customer(int custid, int billamt) {
-	this();
-	this.custid = custid;
-	this.billamt = billamt;
-}
-
-public Customer(int custid, String custname) {
-	
-	this();
-	this.custid = custid;
-	this.custname = custname;
-}
-
-/*public Customer(String custname, int custid) {
-	super();
-	this.custname = custname;
-	this.custid = custid;
-}
-*/
-public void display()
-{
-	System.out.println("customer details");
-	System.out.println("customer id is"+custid);
-	System.out.println("customer name is "+custname);
-	System.out.println("bill is "+billamt);
-}
-
-
 }
