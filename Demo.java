@@ -1,28 +1,38 @@
-package Day7;
-//MAPS
-import java.security.KeyStore.Entry;
-import java.util.*;
+package Day8;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Properties;
+import java.util.Set;
+
+import org.omg.CORBA.Object;
+
 public class Demo {
-public static void main(String[] args) {
-	TreeMap<String,Double> tm= new TreeMap<String,Double>(); //creating a treemap
-	tm.put("rishi", new Double(456321.32));
-	tm.put("raja", new Double(56321.32));
-	tm.put("ishita", new Double(45000.82));
-	tm.put("ishaani", new Double(45632.85));
-	tm.put("aruhi", new Double(45000.82));
-	
-	Set<java.util.Map.Entry<String, Double>> s = tm.entrySet(); //converts map to set
-	Iterator i = s.iterator();
-	while(i.hasNext())
+public static void main(String[] args) throws IOException {
+	//PropertieEnumeration<E>m.getProperties();
+	/*Properties p = System.getProperties();
+	Enumeration<java.lang.Object> e=p.elements();*/
+	/*while(e.hasMoreElements())
 	{
-		Map.Entry me = (Map.Entry)i.next(); //used because we r having 2 values primary key and value
-		System.out.println(me.getKey()+":");
-		System.out.println(me.getValue());
-	}
-	System.out.println();
-	double balance = ((Double)tm.get("rishi")).doubleValue();
-	tm.put("rishi", new Double (balance+1000));
-	System.out.println("rishi's new balance :"+tm.get("rishi"));
-	 
+		//System.out.println("value is : "+e.nextElement());
+	}*/
+	InputStream s = new FileInputStream("C:\\mydata\\config.properties");
+	Properties p1 = new Properties();
+	p1.load(s);
+	/*System.out.println("your username is "+ p1.getProperty("username"));
+	System.out.println("your password is "+p1.getProperty("password"));*/
+	String username = p1.getProperty("Username");
+	String password = p1.getProperty("Password");
+	
+	System.out.println("username is "+username);
+	System.out.println("password is "+password);
+	s.close();
+	
 }
 }
