@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1> Customer Details</h1>
+<form name = "customerform" action  = "Products">
+<table>
+<tr>
+<td>Customer Id:</td><td><input type="text" name="customerId"></td></tr><br/>
+<tr><td>Customer Name:</td><td><input type="text" name="customerName"></td></tr><br/>
+<tr><td>Customer Address:</td><td><input type="text" name="customerAddress"></td></tr><br/>
+<tr/><td>Bill Amount:</td><td><input type="text" name="billamount"></td><tr/><br/>
+
+<td>Complete Address with pincode:</td>
+<tr><td><textarea  rows ="3" cols="20"></textarea></td></tr>
+<tr>
+<td>Gender:</td>
+<td>
+<input type = "radio" name = "gender" value = "male" >Male
+<input type = "radio" name = "gender" value = "female">Female
+<input type = "radio" name = "gender" value = "others">Others
+</td>
+</tr>
+<tr>
+<td>
+
+Interested in:</td>
+<td>
+<input type= "checkbox" name ="interest" value="shirts">shirts
+<input type= "checkbox" name ="interest" value="shoes">shoes
+<input type= "checkbox" name ="interest" value="socks">socks
+<input type= "checkbox" name ="interest" value="skirts">skirts
+</td>
+<tr>
+<td>
+From city:</td>
+<td>
+<select name="city">
+<option value= "select">Select</option>
+<option value= "bangalore">Bangalore</option>
+<option value= "delhi">Delhi</option>
+<option value= "pUNE">Pune</option>
+<option value= "bhubaneshwar">Bhubaneshwar</option>
+<option value= "ranchi">Ranchi</option>
+<option value= "sambalpur">Sambalpur</option>
+</td>
+</tr>
+
+</select>
+
+
+
+<td><input type = "submit" value = "Go To Products" ></td>
+<td><input type="reset" value = "Clear"></td>
+
+</table>
+</form>
+<a href ="Product.html">Product</a>
+
+</body>
+</html>

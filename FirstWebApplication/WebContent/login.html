@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type = "text/javascript">
+function validateCustomerInfo()
+{
+	var cN= document.getElementById("cName").value;
+	var cId=document.getElementById("cid").value;
+	var cad = document.getElementById("cad").value;
+	var ba=document.getElementById("ba").value;
+	//var cId= document.forms[0].elements[0].value;
+	var message1=document.getElementById("message1");
+	
+	if(cN.length==0)
+		{
+		<!--alert("please enter your name");-->
+		message1.innerHTML = "<h1><font color = 'red'>Please enter your name";
+		return false;
+		}
+	else if(cId.length == 0)
+		{
+		<!--alert("please enter customer id");-->
+		message1.innerHTML = "<h1><font color = 'red'>Please enter your id";
+		return false;
+		}
+	else if(cad.length==0)
+		{
+		message1.innerHTML = "<h1><font color = 'red'>Please enter your address";
+		return false;
+		}
+	else if(ba.length==0)
+		{
+		message1.innerHTML = "<h1><font color = 'red'>Please enter your bill amount";
+		return false;
+		}
+	else 
+		{
+		<!--alert("welcome : "+cN);-->
+		message1.innerHTML = "<h1><font color = 'blue'>Welcome :"+cN;
+		}
+	}
+
+
+</script>
+</head>
+ <form name = "loginform" action = "CustomerSave" onsubmit ="return validateCustomerInfo()"> 
+<td>Customer Id (required):</td><td><input type="text" id = "cid" name="customerId"></td></tr><br/>
+<tr><td>Customer Name (required):</td><td><input type="text" id = "cName" name="customerName"></td></tr><br/>
+<td>Customer Address (required):</td><td><input type="text" id = "cad" name="customerAddress"></td></tr><br/>
+<tr><td>Bill Amount (required):</td><td><input type="text" id = "ba" name="BillAmount"></td></tr><br/>
+<!-- <tr><td> <input type = "button" value = "go" onclick = "validateCustomerInfo()"></td></tr> -->
+<tr><td> <input type = "submit" value = "go"></td></tr>
+
+<div id="message1"></div>
+<!--</form>  -->
+</html>
